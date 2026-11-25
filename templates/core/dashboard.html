@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard Principal - Enterprise Core{% endblock %}
+
+{% block content %}
+<!-- 4 Tarjetas Blancas con Acentos de Color (Estilo Exacto del Mockup) -->
+<div class="row g-3 mb-4">
+    <!-- Card 1: Registros Comerciales -->
+    <div class="col-xl-3 col-md-6">
+        <div class="white-clean-card p-4 h-100 d-flex flex-column justify-content-between">
+            <div>
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="metric-icon-circle icon-blue">
+                        <i class="bi bi-bar-chart-fill"></i>
+                    </div>
+                    <span class="text-dark fw-bold" style="font-size: 0.95rem;">Registros Comerciales</span>
+                </div>
+                <div class="d-flex align-items-baseline gap-3 my-2">
+                    <span class="metric-value-huge">{{ total_records }}</span>
+                    <span class="tag-pill tag-pill-blue">
+                        <i class="bi bi-arrow-up-short fs-6"></i> Auditados
+                    </span>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end mt-2">
+                <span class="text-muted small" style="font-size: 0.78rem;">Ingresa normalizada en base relacional</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 2: Tasa de Procesamiento ETL -->
+    <div class="col-xl-3 col-md-6">
+        <div class="white-clean-card p-4 h-100 d-flex flex-column justify-content-between">
+            <div>
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="metric-icon-circle icon-green">
+                        <i class="bi bi-file-earmark-check-fill"></i>
+                    </div>
+                    <span class="text-dark fw-bold" style="font-size: 0.95rem;">Tasa de Procesamiento ETL</span>
+                </div>
+                <div class="d-flex align-items-baseline gap-3 my-2">
+                    <span class="metric-value-huge">{{ completed_documents }}/{{ total_documents }}</span>
+                    <span class="tag-pill tag-pill-green">
+                        <i class="bi bi-check2"></i> 100% Éxito
+                    </span>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end mt-2">
+                <span class="text-muted small" style="font-size: 0.78rem;">Documentos procesados sin errores</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 3: Tareas en Background -->
+    <div class="col-xl-3 col-md-6">
+        <div class="white-clean-card p-4 h-100 d-flex flex-column justify-content-between">
+            <div>
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="metric-icon-circle icon-amber">
+                        <i class="bi bi-layers-fill"></i>
+                    </div>
+                    <span class="text-dark fw-bold" style="font-size: 0.95rem;">Tareas en Background</span>
+                </div>
+                <div class="d-flex align-items-baseline gap-3 my-2">
+                    <span class="metric-value-huge">{{ scheduled_jobs|length }}</span>
+                    <span class="tag-pill tag-pill-amber">
+                        <i class="bi bi-clock"></i> En Cola
+                    </span>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-end mt-2">
+                <span class="text-muted small" style="font-size: 0.78rem;">Orquestador APScheduler activo</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 4: Integridad del Sistema -->
+    <div class="col-xl-3 col-md-6">
+        <div class="white-clean-card p-4 h-100 d-flex flex-column justify-content-between">
+            <div>
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="metric-icon-circle icon-teal">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <span class="text-dark fw-bold" style="font-size: 0.95rem;">Integridad del Sistema</span>
+                </div>
+                <div class="d-flex align-items-baseline gap-3 my-2">
+                    <span class="metric-value-huge text-success d-flex align-items-center gap-1">
+                        Activo
+                    </span>
+                    <span class="text-secondary small fw-medium">0 excepciones</span>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-2">
+                <span class="text-muted small" style="font-size: 0.78rem;">Rotación de logs activa</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Barra de Operaciones Directas (Match Exacto del Mockup) -->
+<div class="action-strip-card mb-4">
+    <div>
+        <div class="d-flex align-items-center gap-2 text-dark fw-bold" style="font-size: 1.05rem;">
+            <i class="bi bi-lightning-charge-fill text-primary"></i>
+            <span>Operaciones Directas</span>
+        </div>
+        <p class="text-muted small mb-0 mt-1">Accede rápidamente a las funciones principales del sistema.</p>
+    </div>
+
+    <div class="d-flex align-items-center gap-2 flex-wrap">
+        <a href="{% url 'documents:list' %}" class="btn-action-primary">
+            <i class="bi bi-cloud-arrow-up-fill"></i>
+            <span>Cargar Archivo Excel</span>
+        </a>
+        <a href="{% url 'dashboards:analytics' %}" class="btn-action-secondary">
+            <i class="bi bi-bar-chart"></i>
+            <span>Explorar Dashboard Dash</span>
+        </a>
+        <a href="{% url 'automations:control_panel' %}" class="btn-action-secondary">
+            <i class="bi bi-sliders"></i>
+            <span>Programador APScheduler</span>
+        </a>
+    </div>
+</div>
+
+<!-- Tablas Inferiores: Documentos Recientes e Historial de Automatizaciones -->
+<div class="row g-4">
+    <!-- Columna 1: Documentos Recientes -->
+    <div class="col-lg-6">
+        <div class="white-clean-card h-100 d-flex flex-column">
+            <div class="p-3 px-4 d-flex justify-content-between align-items-center border-bottom">
+                <div class="d-flex align-items-center gap-2 text-dark fw-bold" style="font-size: 0.98rem;">
+                    <i class="bi bi-file-earmark-text text-primary fs-5"></i>
+                    <span>Documentos Recientes</span>
+                </div>
+                <a href="{% url 'documents:list' %}" class="small text-decoration-none fw-semibold" style="color: var(--brand-primary);">
+                    Gestionar todos &rarr;
+                </a>
+            </div>
+            <div class="table-responsive flex-grow-1">
+                <table class="table-clean-light">
+                    <thead>
+                        <tr>
+                            <th>ARCHIVO</th>
+                            <th>ESTADO</th>
+                            <th class="text-center">FILAS</th>
+                            <th class="text-end">CARGA</th>
+                            <th class="text-center">FECHA</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for doc in recent_documents %}
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="rounded-2 p-1 px-2 text-white d-flex align-items-center justify-content-center" style="background-color: #107C41; font-size: 0.8rem; font-weight: 700;">
+                                        <i class="bi bi-file-earmark-excel"></i>
+                                    </div>
+                                    <span class="fw-semibold text-dark">{{ doc.filename|truncatechars:26 }}</span>
+                                </div>
+                            </td>
+                            <td>
+                                {% if doc.status == 'COMPLETED' %}
+                                    <span class="tag-pill tag-pill-green">
+                                        <span class="status-dot-green"></span> Completado
+                                    </span>
+                                {% elif doc.status == 'PROCESSING' %}
+                                    <span class="tag-pill tag-pill-blue">
+                                        <i class="bi bi-arrow-repeat"></i> Procesando
+                                    </span>
+                                {% elif doc.status == 'FAILED' %}
+                                    <span class="tag-pill tag-pill-neutral text-danger border-danger">
+                                        <i class="bi bi-x-circle"></i> Error
+                                    </span>
+                                {% else %}
+                                    <span class="tag-pill tag-pill-neutral">
+                                        Pendiente
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td class="text-center text-dark fw-bold tabular-nums">{{ doc.row_count }}</td>
+                            <td class="text-end text-muted small tabular-nums">{{ doc.file_size_bytes|filesizeformat }}</td>
+                            <td class="text-center text-muted small tabular-nums">{{ doc.uploaded_at|date:"d/m/Y" }}</td>
+                            <td class="text-end text-muted">
+                                <a href="{% url 'documents:list' %}" class="text-muted text-decoration-none" title="Detalles">
+                                    <i class="bi bi-three-dots-vertical"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">No hay documentos registrados aún.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Columna 2: Historial de Automatizaciones -->
+    <div class="col-lg-6">
+        <div class="white-clean-card h-100 d-flex flex-column">
+            <div class="p-3 px-4 d-flex justify-content-between align-items-center border-bottom">
+                <div class="d-flex align-items-center gap-2 text-dark fw-bold" style="font-size: 0.98rem;">
+                    <i class="bi bi-clock-history text-primary fs-5"></i>
+                    <span>Historial de Automatizaciones</span>
+                </div>
+                <a href="{% url 'automations:control_panel' %}" class="small text-decoration-none fw-semibold" style="color: var(--brand-primary);">
+                    Ver bitácora &rarr;
+                </a>
+            </div>
+            <div class="table-responsive flex-grow-1">
+                <table class="table-clean-light">
+                    <thead>
+                        <tr>
+                            <th>PROCESO</th>
+                            <th>ORIGEN</th>
+                            <th>ESTADO</th>
+                            <th class="text-end">DURACIÓN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in recent_logs %}
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="rounded-2 p-1 px-2 d-flex align-items-center justify-content-center text-white" style="background: #6366F1; font-size: 0.75rem;">
+                                        <i class="bi bi-play-fill"></i>
+                                    </div>
+                                    <span class="fw-semibold text-dark">{{ log.job_name|truncatechars:22 }}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="tag-pill tag-pill-blue">
+                                    {{ log.get_triggered_by_display }}
+                                </span>
+                            </td>
+                            <td>
+                                {% if log.status == 'SUCCESS' %}
+                                    <span class="tag-pill tag-pill-green">
+                                        <span class="status-dot-green"></span> Éxito
+                                    </span>
+                                {% elif log.status == 'RUNNING' %}
+                                    <span class="tag-pill tag-pill-blue">
+                                        <i class="bi bi-arrow-repeat"></i> Ejecutando
+                                    </span>
+                                {% else %}
+                                    <span class="tag-pill tag-pill-neutral text-danger border-danger">
+                                        <i class="bi bi-x-circle"></i> Fallo
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td class="text-end text-dark fw-semibold tabular-nums small">
+                                <i class="bi bi-stopwatch text-muted me-1"></i>{{ log.duration_seconds }}s
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center text-muted py-4">No se han registrado ejecuciones.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

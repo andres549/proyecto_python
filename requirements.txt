@@ -1,0 +1,12 @@
+Django>=5.0.0,<5.2.0
+django-plotly-dash>=2.3.1
+dash>=2.14.0
+plotly>=5.18.0
+pandas>=2.2.0
+openpyxl>=3.1.2
+APScheduler>=3.10.4
+SQLAlchemy>=2.0.25
+python-dotenv>=1.0.0
+dash-bootstrap-components>=1.5.0
+pytest>=8.0.0
+pytest-django>=4.8.0

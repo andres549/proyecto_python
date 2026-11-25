@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}Enterprise Core - Plataforma de Auditoría Contable & Pipeline ETL Python{% endblock %}
+
+{% block top_header_content %}
+<div class="header-accent-bar"></div>
+<h1 class="header-main-title">Portal Principal de Auditoría y Acceso</h1>
+<p class="header-subtext">Plataforma empresarial de analítica contable, procesamiento ETL y orquestación autónoma en segundo plano.</p>
+{% endblock %}
+
+{% block content %}
+<!-- Bloque Hero Ejecutivo de Dos Columnas -->
+<div class="white-clean-card mb-4" style="padding: 2.25rem 2.5rem; background: linear-gradient(180deg, #FFFFFF 0%, #FAFCFF 100%);">
+    <div class="row align-items-center g-4">
+        <!-- Columna Izquierda: Propuesta de Valor y Acciones -->
+        <div class="col-xl-7 col-lg-6">
+            <div class="d-flex align-items-center gap-2 mb-3">
+                <span class="tag-pill tag-pill-blue">
+                    <i class="bi bi-cpu-fill"></i> Ecosistema 100% Python
+                </span>
+                <span class="tag-pill tag-pill-green">
+                    <i class="bi bi-shield-check"></i> Motor APScheduler Operativo
+                </span>
+            </div>
+
+            <h2 class="fw-bold text-dark mb-3" style="font-size: 1.85rem; letter-spacing: -0.025em; line-height: 1.25;">
+                Auditoría Contable, Transformación ETL y Analítica Reactiva
+            </h2>
+
+            <p class="text-secondary mb-4" style="font-size: 0.95rem; line-height: 1.65; max-width: 680px;">
+                Solución corporativa diseñada para ingestar libros de facturación en formato Excel, sanear y tipar datos automáticamente con <strong>Pandas</strong>, persistir registros atómicos en la base de datos relacional <strong>Django</strong>, coordinar tareas periódicas mediante <strong>APScheduler</strong> y generar tableros ejecutivos en tiempo real con <strong>Plotly Dash</strong>.
+            </p>
+
+            <div class="d-flex flex-wrap align-items-center gap-3">
+                <a href="{% url 'authentication:login' %}" class="btn-action-primary py-2 px-4" style="font-size: 0.95rem;">
+                    <i class="bi bi-box-arrow-in-right fs-5"></i>
+                    <span>Iniciar Sesión en el Sistema</span>
+                </a>
+                <a href="{% url 'core:dashboard' %}" class="btn-action-secondary py-2 px-3">
+                    <i class="bi bi-grid-fill text-primary"></i>
+                    <span>Ir al Dashboard Operativo</span>
+                </a>
+                <a href="/media/plantilla_prueba_auditoria.xlsx" class="btn-action-secondary py-2 px-3" download>
+                    <i class="bi bi-file-earmark-excel text-success"></i>
+                    <span>Descargar Plantilla Excel</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Columna Derecha: Tarjeta de Acceso y Estado Operativo -->
+        <div class="col-xl-5 col-lg-6">
+            <div class="rounded-4" style="padding: 1.75rem; background: #F8FAFC; border: 1px solid var(--border-card);">
+                <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="metric-icon-circle icon-blue" style="width: 36px; height: 36px; font-size: 1rem;">
+                            <i class="bi bi-shield-lock-fill"></i>
+                        </div>
+                        <div>
+                            <div class="fw-bold text-dark" style="font-size: 0.95rem;">Acceso al Sistema</div>
+                            <div class="text-secondary small" style="font-size: 0.75rem;">Credenciales de Demostración</div>
+                        </div>
+                    </div>
+                    <span class="tag-pill tag-pill-green">
+                        <span class="status-dot-green"></span> Activo
+                    </span>
+                </div>
+
+                <div class="rounded-3 mb-3" style="padding: 1rem 1.25rem; background: #FFFFFF; border: 1px solid #E2E8F0; font-family: -apple-system, BlinkMacSystemFont, monospace;">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-secondary small">Usuario Administrador:</span>
+                        <code class="px-2 py-1 bg-light rounded text-dark fw-bold" style="font-size: 0.85rem;">admin</code>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-secondary small">Contraseña Temporal:</span>
+                        <code class="px-2 py-1 bg-light rounded text-dark fw-bold" style="font-size: 0.85rem;">adminpassword2026</code>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between pt-1">
+                    <span class="text-secondary small" style="font-size: 0.78rem;">Rol: Superusuario con privilegios completos</span>
+                    <a href="{% url 'authentication:login' %}" class="fw-bold text-primary small text-decoration-none d-inline-flex align-items-center gap-1">
+                        <span>Ingresar ahora</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bloque de Especificación Técnica & Navegación Directa -->
+<div class="row g-3">
+    <!-- Tabla de Contrato del Esquema de Datos -->
+    <div class="col-lg-7">
+        <div class="white-clean-card h-100" style="padding: 1.5rem;">
+            <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-file-earmark-check text-primary fs-5"></i>
+                    <h4 class="fw-bold text-dark mb-0" style="font-size: 1.05rem;">Contrato del Esquema Contable</h4>
+                </div>
+                <span class="tag-pill tag-pill-blue">8 Columnas Requeridas</span>
+            </div>
+            <p class="text-secondary small mb-3">
+                Cualquier planilla Excel o CSV subida a la plataforma es validada automáticamente contra este esquema estricto:
+            </p>
+            <div class="table-responsive">
+                <table class="table-clean-light">
+                    <thead>
+                        <tr>
+                            <th>CAMPO</th>
+                            <th>TIPO DE DATO</th>
+                            <th>VALIDACIÓN & REGLA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code class="text-primary fw-semibold">codigo_factura</code></td>
+                            <td><span class="badge bg-light text-dark border">VARCHAR(50)</span></td>
+                            <td class="text-secondary small">Identificador único de factura comercial</td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary fw-semibold">cliente</code></td>
+                            <td><span class="badge bg-light text-dark border">VARCHAR(150)</span></td>
+                            <td class="text-secondary small">Razón social o nombre de cliente verificado</td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary fw-semibold">region / categoria</code></td>
+                            <td><span class="badge bg-light text-dark border">VARCHAR(100)</span></td>
+                            <td class="text-secondary small">Agrupación geográfica y clasificación de producto</td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary fw-semibold">cantidad / precio_unitario</code></td>
+                            <td><span class="badge bg-light text-dark border">INT / DECIMAL(12,2)</span></td>
+                            <td class="text-secondary small">Cálculo auditado de subtotal, IVA (19%) y total</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel de Navegación Rápida a Módulos -->
+    <div class="col-lg-5">
+        <div class="white-clean-card h-100 d-flex flex-column justify-content-between" style="padding: 1.5rem;">
+            <div>
+                <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-grid text-primary fs-5"></i>
+                        <h4 class="fw-bold text-dark mb-0" style="font-size: 1.05rem;">Módulos del Sistema</h4>
+                    </div>
+                    <span class="tag-pill tag-pill-green">
+                        <span class="status-dot-green"></span> 100% En Línea
+                    </span>
+                </div>
+
+                <div class="d-flex flex-column gap-2 mb-3">
+                    <a href="{% url 'authentication:login' %}" class="d-flex align-items-center justify-content-between rounded-3 text-decoration-none" style="padding: 0.9rem 1.15rem; background: #EFF6FF; border: 1px solid #BFDBFE;">
+                        <span class="fw-semibold text-primary" style="font-size: 0.875rem;">
+                            <i class="bi bi-box-arrow-in-right me-2"></i> Iniciar Sesión de Administrador
+                        </span>
+                        <i class="bi bi-arrow-right text-primary small"></i>
+                    </a>
+                    <a href="{% url 'documents:list' %}" class="d-flex align-items-center justify-content-between rounded-3 text-decoration-none" style="padding: 0.9rem 1.15rem; background: #F8FAFC; border: 1px solid var(--border-card);">
+                        <span class="fw-semibold text-dark" style="font-size: 0.875rem;">
+                            <i class="bi bi-cloud-arrow-up text-primary me-2"></i> Gestión Documental & Carga Excel
+                        </span>
+                        <i class="bi bi-chevron-right text-secondary small"></i>
+                    </a>
+                    <a href="{% url 'dashboards:analytics' %}" class="d-flex align-items-center justify-content-between rounded-3 text-decoration-none" style="padding: 0.9rem 1.15rem; background: #F8FAFC; border: 1px solid var(--border-card);">
+                        <span class="fw-semibold text-dark" style="font-size: 0.875rem;">
+                            <i class="bi bi-bar-chart-line text-info me-2"></i> Tableros Analíticos Plotly Dash
+                        </span>
+                        <i class="bi bi-chevron-right text-secondary small"></i>
+                    </a>
+                    <a href="{% url 'automations:control_panel' %}" class="d-flex align-items-center justify-content-between rounded-3 text-decoration-none" style="padding: 0.9rem 1.15rem; background: #F8FAFC; border: 1px solid var(--border-card);">
+                        <span class="fw-semibold text-dark" style="font-size: 0.875rem;">
+                            <i class="bi bi-gear text-warning me-2"></i> Centro de Control APScheduler
+                        </span>
+                        <i class="bi bi-chevron-right text-secondary small"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="pt-3 border-top text-center">
+                <span class="text-secondary small" style="font-size: 0.75rem;">
+                    Django 5.1 • Dash 2.14 • Pandas 3.1 • APScheduler 3.11 • SQLAlchemy
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
